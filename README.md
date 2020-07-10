@@ -8,7 +8,6 @@
 
 Here are some ideas to get you started:-->
 
-- 🔭 I’m currently working on Natural Language Processing
 - 🌱 I’m currently learning System Design and Distributed Systems
 - 💬 Ask me about anything!
 - 📫 How to reach me: [mail me!](mailto:amar.om1994@gmail.com)
