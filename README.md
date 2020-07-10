@@ -1,5 +1,8 @@
 ### Hi there 👋
 
+[![HitCount](http://hits.dwyl.com/amarlearning/amarlearning.svg)](http://hits.dwyl.com/amarlearning/amarlearning)
+
+
 <!--
 **amarlearning/amarlearning** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
