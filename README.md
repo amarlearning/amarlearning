@@ -8,8 +8,8 @@
 
 Here are some ideas to get you started:-->
 - 💻 I code in Java.
-- 🌱 I’m currently learning System Design and Distributed Systems
+- 🌱 I’m currently learning System Design and Distributed Systems.
 - 💬 Ask me about anything!
-- 📫 How to reach me: [mail me!](mailto:amar.om1994@gmail.com)
-- ⚡ Fun fact: If you folded a piece of paper in half 103 times it would be the thickness of the observable universe
+- 📫 How to reach me: [mail!](mailto:amar.om1994@gmail.com)
+- ⚡ Fun fact: If you folded a piece of paper in half 103 times it would be the thickness of the observable universe.
 
