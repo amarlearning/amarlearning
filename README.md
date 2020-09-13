@@ -1,4 +1,4 @@
-## Hey, I'm [Amar Prakash Pandey!](https://www.amarpandey.me) 👋
+## Hey 👋
 
 <p align="left"> <img src="http://hits.dwyl.com/amarlearning/amarlearning.svg" alt="amarlearning" /> </p>
 
