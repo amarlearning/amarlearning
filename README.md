@@ -34,10 +34,10 @@
 <br/>
 
 
-- 💻 I code in Java.
+- 💻 I code in Java and python.
 - 🌱 I’m currently learning System Design and Distributed Systems.
 - 💬 Ask me about my projects, Java, Natural Language Processing and Space-Time Continuum!
-- ⚡ Fun fact: If you folded a piece of paper in half 103 times it would be the thickness of the observable universe.
+- ⚡ Fact: If you folded a piece of paper in half 103 times it would be the thickness of the observable universe.
 - :smile: Pronouns: He/His
 
 **Languages and Tools:**
