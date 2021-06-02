@@ -1,9 +1,1 @@
-## Hi there 👋
-
-<p align="left"> <img src="http://hits.dwyl.com/amarlearning/amarlearning.svg" alt="amarlearning" /> </p>
-
-- 💻 I code in Java and python.
-- 🌱 I’m currently learning System Design and Distributed Systems.
-- 💬 Ask me about my projects, Java, Natural Language Processing and Space-Time Continuum!
-- ⚡ Fact: If you folded a piece of paper in half 103 times it would be the thickness of the observable universe.
-- :smile: Pronouns: He/His
+[![](https://raw.githubusercontent.com/amarlearning/amarlearning/master/chat.svg?token=ACHS7WNERR5S52GSIRC22FDAYEABE)](https://www.amarpandey.me/)
