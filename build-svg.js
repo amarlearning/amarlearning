@@ -18,7 +18,7 @@ const emojis = {
 }
 
 // Time working at PlanetScale
-const today = new Date()
+var today = new Date(new Date().getTime() + (330 + new Date().getTimezoneOffset())*60000);
 const todayDay = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(today)
 
 const psTime = formatDistance(new Date(2021, 03, 30), today, {
