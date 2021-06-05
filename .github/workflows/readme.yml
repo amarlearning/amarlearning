@@ -23,7 +23,9 @@ jobs:
         
     - name: Generate readme
       env:
-       WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}    
+       LATITUDE: ${{ secrets.LATITUDE }}
+       LONGITUDE: ${{ secrets.LONGITUDE }}
+       WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
       run: node build-svg.js
 
     - name: Commit changes
