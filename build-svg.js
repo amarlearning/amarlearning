@@ -51,7 +51,7 @@ dayBubbleWidths = {
 
 // Time working at Sahaj.ai
 const today = new Date()
-const todayDay = new Intl.DateTimeFormat('hi', { weekday: 'long' }).format(
+const todayDay = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(
   today
 )
 
