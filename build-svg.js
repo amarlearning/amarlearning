@@ -51,7 +51,7 @@ dayBubbleWidths = {
 
 // Time working at Sahaj.ai
 const today = new Date()
-const todayDay = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(
+const todayDay = new Intl.DateTimeFormat('hi', { weekday: 'long' }).format(
   today
 )
 
@@ -60,7 +60,7 @@ const psTime = formatDistance(new Date(2021, 03, 30), today, {
 })
 
 // Today's weather
-const locationKey = '18363_PC'
+const locationKey = '1-204848_24_AL'
 let url = `forecasts/v1/daily/1day/${locationKey}?apikey=${WEATHER_API_KEY}`
 
 got(url, { prefixUrl: WEATHER_DOMAIN })
