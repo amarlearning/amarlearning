@@ -1,1 +1,1 @@
-[![](https://raw.githubusercontent.com/amarlearning/amarlearning/main/chat.svg)](https://twitter.com/iamarpandey)
+[![](https://raw.githubusercontent.com/amarlearning/amarlearning/master/chat.svg)](https://twitter.com/iamarpandey)
