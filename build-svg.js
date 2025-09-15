@@ -58,7 +58,7 @@ const todayDay = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(
 const psTime = formatDistance(new Date(2021, 03, 30), today, {
   addSuffix: false,
 })
-
+ 
 // Today's weather
 const locationKey = '1-204848_24_AL'
 let url = `forecasts/v1/daily/1day/${locationKey}?apikey=${WEATHER_API_KEY}`
@@ -84,11 +84,12 @@ got(url, { prefixUrl: WEATHER_DOMAIN })
       data = data.replace('{todayDay}', todayDay)
       data = data.replace('{dayBubbleWidth}', dayBubbleWidths[todayDay])
 
-      data = fs.writeFile('chat.svg', data, (err) => {
+      fs.writeFile('chat.svg', data, (err) => {
         if (err) {
           console.error(err)
           return
         }
+        console.log('Successfully generated chat.svg')
       })
     })
   })
