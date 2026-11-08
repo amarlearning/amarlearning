@@ -1,45 +1,45 @@
-const WEATHER_API_KEY = process.env.WEATHER_API_KEY
+import fs from 'fs'
+import got from 'got'
+import { formatDistance } from 'date-fns'
 
-let fs = require('fs')
-let got = require('got')
-let qty = require('js-quantities')
-let formatDistance = require('date-fns/formatDistance')
-
-let WEATHER_DOMAIN = 'http://dataservice.accuweather.com'
-
+// WMO Weather Codes -> Emojis
 const emojis = {
-  1: '☀️',
-  2: '☀️',
-  3: '🌤',
-  4: '🌤',
-  5: '🌤',
-  6: '🌥',
-  7: '☁️',
-  8: '☁️',
-  11: '🌫',
-  12: '🌧',
-  13: '🌦',
-  14: '🌦',
-  15: '⛈',
-  16: '⛈',
-  17: '🌦',
-  18: '🌧',
-  19: '🌨',
-  20: '🌨',
-  21: '🌨',
-  22: '❄️',
-  23: '❄️',
-  24: '🌧',
-  25: '🌧',
-  26: '🌧',
-  29: '🌧',
-  30: '🥵',
-  31: '🥶',
-  32: '💨',
+  0: '☀️',  // Clear sky
+  1: '🌤',  // Mainly clear
+  2: '⛅',  // Partly cloudy
+  3: '☁️',  // Overcast
+  45: '🌫', // Fog
+  48: '🌫', // Depositing rime fog
+  51: '🌧', // Light drizzle
+  53: '🌧', // Moderate drizzle
+  55: '🌧', // Dense drizzle
+  56: '🌧', // Light freezing drizzle
+  57: '🌧', // Dense freezing drizzle
+  61: '🌧', // Slight rain
+  63: '🌧', // Moderate rain
+  65: '🌧', // Heavy rain
+  66: '🌧', // Light freezing rain
+  67: '🌧', // Heavy freezing rain
+  71: '🌨', // Slight snow
+  73: '🌨', // Moderate snow
+  75: '❄️', // Heavy snow
+  77: '🌨', // Snow grains
+  80: '🌦', // Slight rain showers
+  81: '🌦', // Moderate rain showers
+  82: '🌧', // Violent rain showers
+  85: '🌨', // Slight snow showers
+  86: '❄️', // Heavy snow showers
+  95: '⛈',  // Thunderstorm
+  96: '⛈',  // Thunderstorm with slight hail
+  99: '⛈',  // Thunderstorm with heavy hail
 }
 
+// Columbus, Ohio
+const LATITUDE = 18.516726
+const LONGITUDE = 73.856255
+
 // Cheap, janky way to have variable bubble width
-dayBubbleWidths = {
+const dayBubbleWidths = {
   Monday: 235,
   Tuesday: 235,
   Wednesday: 260,
@@ -49,50 +49,72 @@ dayBubbleWidths = {
   Sunday: 230,
 }
 
-// Time working at Sahaj.ai
+// Time working at PlanetScale
 const today = new Date()
 const todayDay = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(
   today
 )
 
-const psTime = formatDistance(new Date(2021, 03, 30), today, {
+const psTime = formatDistance(new Date(2020, 12, 14), today, {
   addSuffix: false,
 })
- 
-// Today's weather
-const locationKey = '1-204848_24_AL'
-let url = `forecasts/v1/daily/1day/${locationKey}?apikey=${WEATHER_API_KEY}`
 
-got(url, { prefixUrl: WEATHER_DOMAIN })
+// Today's weather from Open-Meteo (free, no API key required)
+const url = `https://api.open-meteo.com/v1/forecast?latitude=${LATITUDE}&longitude=${LONGITUDE}&daily=temperature_2m_max,weather_code&temperature_unit=fahrenheit&timezone=auto`
+
+console.log(`Fetching weather for ${LATITUDE}, ${LONGITUDE}...`)
+
+got(url)
   .then((response) => {
-    console.log(response.body)
-    let json = JSON.parse(response.body)
+    let json
+    try {
+      json = JSON.parse(response.body)
+    } catch (e) {
+      console.error('Failed to parse API response:', response.body.slice(0, 500))
+      process.exit(1)
+    }
 
-    const degF = Math.round(json.DailyForecasts[0].Temperature.Maximum.Value)
-    const degC = Math.round(qty(`${degF} tempF`).to('tempC').scalar)
-    const icon = json.DailyForecasts[0].Day.Icon
+    if (!json.daily || !json.daily.temperature_2m_max || !json.daily.weather_code) {
+      console.error('Unexpected API response structure:', JSON.stringify(json, null, 2))
+      process.exit(1)
+    }
+
+    const degF = Math.round(json.daily.temperature_2m_max[0])
+    const degC = Math.round((degF - 32) * 5 / 9)
+    const weatherCode = json.daily.weather_code[0]
+    const emoji = emojis[weatherCode] || '🌡'
+
+    console.log(`Weather: ${degF}°F (${degC}°C), code ${weatherCode} ${emoji}`)
 
     fs.readFile('template.svg', 'utf-8', (error, data) => {
       if (error) {
-        return
+        console.error('Failed to read template.svg:', error.message)
+        process.exit(1)
       }
 
       data = data.replace('{degF}', degF)
       data = data.replace('{degC}', degC)
-      data = data.replace('{weatherEmoji}', emojis[icon])
+      data = data.replace('{weatherEmoji}', emoji)
       data = data.replace('{psTime}', psTime)
       data = data.replace('{todayDay}', todayDay)
       data = data.replace('{dayBubbleWidth}', dayBubbleWidths[todayDay])
 
       fs.writeFile('chat.svg', data, (err) => {
         if (err) {
-          console.error(err)
-          return
+          console.error('Failed to write chat.svg:', err.message)
+          process.exit(1)
         }
-        console.log('Successfully generated chat.svg')
+        console.log('Successfully updated chat.svg')
       })
     })
   })
   .catch((err) => {
-    console.log(err)
+    console.error('Failed to fetch weather from Open-Meteo')
+    console.error('URL:', url)
+    console.error('Error:', err.message)
+    if (err.response) {
+      console.error('Status:', err.response.statusCode)
+      console.error('Body:', err.response.body?.slice(0, 500))
+    }
+    process.exit(1)
   })
