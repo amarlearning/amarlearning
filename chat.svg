@@ -239,7 +239,7 @@
   <g transform="translate(16, 46)" class="msg-2">
     <rect width="385" height="64" rx="18" class="bubble" />
     <text x="16" y="25">I live in Pune, India where it’s supposed to be</text>
-    <text x="16" y="48">87° F (31° C) and <tspan class="emoji">☀️</tspan> today.</text>
+    <text x="16" y="48">88° F (31° C) and <tspan class="emoji">☀️</tspan> today.</text>
   </g>
 
   <!-- typing 3 -->
